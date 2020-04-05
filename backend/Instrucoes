@@ -1,0 +1,3 @@
+Criar migrations: yarn sequelize cd:migrate
+
+Executar: yarn start
