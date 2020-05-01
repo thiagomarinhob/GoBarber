@@ -1,5 +1,6 @@
 import * as Yup from 'yup';
 import User from '../models/User';
+import File from '../models/File';
 
 export default {
   async store(req, res) {
@@ -16,8 +17,6 @@ export default {
     const userExist = await User.findOne({ where: { email: req.body.email } });
 
     if (userExist) {
-      // console.log(userExist.data.email);
-
       return res.status(400).json({ eror: 'Usuario ja existe' });
     }
 
@@ -68,14 +67,23 @@ export default {
       return res.status(400).json({ error: 'Password does not match' });
     }
 
-    const { id, name, provider } = await user.update(req.body);
+    await user.update(req.body);
+
+    const { id, name, avatar } = await User.findByPk(req.userId, {
+      include: [
+        {
+          model: File,
+          as: 'avatar',
+          attributes: ['id', 'path', 'url'],
+        }
+      ]
+    })
 
     return res.json({
       id,
       name,
       email,
-      provider,
-      avatar_id,
+      avatar,
     });
   },
 };

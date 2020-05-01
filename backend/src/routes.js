@@ -25,7 +25,7 @@ routes.use(authMiddleware);
 routes.put('/users', UserController.update);
 
 routes.get('/providers', ProviderController.index);
-Router.get('/providers/:providerId/avaliable', AvaliableController.index);
+routes.get('/providers/:providerId/avaliable', AvaliableController.index);
 
 routes.post('/files', upload.single('file'), FileController.store);
 
