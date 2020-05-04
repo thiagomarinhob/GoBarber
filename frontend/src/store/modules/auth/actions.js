@@ -8,7 +8,7 @@ export function signInRequest(email, password) {
 export function SignInSuccess(token, user) {
     return {
         type: '@auth/SIGN_IN_SUCCESS',
-        PAYLOAD: { token, user },
+        payload: { token, user },
     }
 }
 

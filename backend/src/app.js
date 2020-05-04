@@ -5,10 +5,10 @@ import path from 'path';
 import cors from 'cors';
 import * as Sentry from '@sentry/node';
 import Youch from 'youch';
-import 'express-async-errors';
 import routes from './routes';
 import sentryConfig from './config/sentry';
 
+import 'express-async-errors';
 import './database';
 
 class App {
@@ -42,7 +42,7 @@ class App {
       if (process.env.NODE_ENV) {
         const errors = await new Youch(err, req).toJSON();
 
-        return res.statu(500).json(errors);
+        return res.status(500).json(errors);
       }
       return res.status(500).json({ error: 'Internal server error' });
     });

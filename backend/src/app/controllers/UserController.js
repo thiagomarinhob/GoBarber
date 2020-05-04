@@ -3,6 +3,12 @@ import User from '../models/User';
 import File from '../models/File';
 
 export default {
+  async index(req, res) {
+    const response = await User.findAll();
+
+    return res.json(response);
+  },
+
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
@@ -51,7 +57,7 @@ export default {
       return res.status(400).json({ error: 'Validation fails' });
     }
 
-    const { email, oldPassword, avatar_id } = req.body;
+    const { email, oldPassword } = req.body;
 
     const user = await User.findByPk(req.userId);
 
@@ -75,9 +81,9 @@ export default {
           model: File,
           as: 'avatar',
           attributes: ['id', 'path', 'url'],
-        }
-      ]
-    })
+        },
+      ],
+    });
 
     return res.json({
       id,
