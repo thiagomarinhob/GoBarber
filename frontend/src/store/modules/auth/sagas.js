@@ -58,7 +58,7 @@ export function setToken({ payload }) {
 
     const { token } = payload.auth;
 
-    if(toke) {
+    if(token) {
         api.defaults.headers.Authorization = `Bearer ${token}`;
     }
 }
