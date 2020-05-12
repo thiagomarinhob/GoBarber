@@ -1,16 +1,21 @@
 import produce from 'immer';
 
-const INITTIAL_STATE ={
+const INITIAL_STATE ={
     profile: null,
 }
 
-export default function auth(state = INITTIAL_STATE, action){
+export default function user(state = INITIAL_STATE, action){
+    return produce(state, draft => {
     switch (action.type) {
-        case '@auth/SIGN_IN_SUCCESS':
-            return produce(state, draft => {
-                draft.profile = action.payload.user;
-            });
+        case '@auth/SIGN_IN_SUCCESS':{
+            draft.profile = action.payload.user;
+            break;
+        }
+        case '@user/UPDATE_PROFILE_SUCCESS': {
+            draft.profile = action.payload.profile;
+            break;
+        }
         default:
-            return state;
     }
+    });
 }
